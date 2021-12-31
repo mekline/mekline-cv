@@ -1,0 +1,223 @@
+---
+title: "MKS's resume"
+author: Melissa Kline Struhl
+date: "`r Sys.Date()`"
+output:
+  pagedown::html_resume:
+    # set it to true for a self-contained HTML page but it'll take longer to render
+    self_contained: true
+    css: ['dd_cv.css', 'resume']
+# uncomment this line to produce HTML and PDF in RStudio:
+knit: pagedown::chrome_print
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results='asis', echo = FALSE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(rcrossref)
+library(glue)
+library(here)
+```
+
+```{r get-cv-data, warning = FALSE, include = FALSE}
+papers <- read.csv(paste0(here::here(), '/published_papers.csv')) %>%
+  mutate(citation_text = as.character(unlist(cr_cn(doi, format = 'text', style = "apa")))) %>%
+  mutate(citation_year = str_extract(citation_text, "(20|19)[0-9]{2}")) %>%
+  mutate(section = "papers",
+         description_1 = as.character(NA),
+         start = as.character(NA),
+         end = citation_year) 
+
+entries <- read.csv(paste0(here::here(), '/entries.csv')) %>%
+   mutate(across(where(is.character), ~na_if(., "")))
+
+```
+
+
+```{r funcs, include = FALSE}
+# From rdatadrivencv package
+#' @description Take a position data frame and the section id desired and prints the section to markdown.
+#' @param section_id ID of the entries section to be printed as encoded by the `section` column of the `entries` table
+
+print_section <- function(cvtable, section_id, glue_template = "default"){
+
+  # Choose Template
+  if(glue_template == "default"){
+    glue_template <- "
+### {title}
+
+{institution}
+    
+N/A
+
+{timeline}
+
+{description_bullets}
+
+\n\n\n"
+  }
+  
+  if(glue_template == "citation"){
+    glue_template <- "
+### 
+
+{citation_text}
+
+N/A
+
+{citation_year}
+
+\n\n\n"  
+  }
+  
+
+  # Get relevant data
+  section_data <- dplyr::filter(cvtable, section == section_id)
+  
+  # Transform data for template!
+  section_data <- section_data %>%
+    unite(
+      starts_with('description'),
+      col = "description_bullets",
+      sep = "\n- ",
+      na.rm = TRUE
+    ) %>%
+    mutate(description_bullets = ifelse(description_bullets != "", paste0("- ", description_bullets), "")) %>%
+    mutate(no_start = is.na(start),
+      has_start = !no_start,
+      no_end = is.na(end),
+      has_end = !no_end,
+      timeline = case_when(
+        no_start  & no_end  ~ "N/A",
+        no_start  & has_end ~ as.character(end),
+        has_start & no_end  ~ paste("Current", "-", start),
+        TRUE                ~ paste(end, "-", start)
+      ))
+
+  # Print data in template
+  print(glue::glue_data(section_data, glue_template))
+}
+```
+
+Aside
+================================================================================
+
+Contact Info {#contact}
+--------------------------------------------------------------------------------
+
+
+- <i class="fa fa-envelope"></i> mekline@mit.edu
+- <i class="fa fa-github"></i> [mekline](https://github.com/mekline)
+- <i class="fa fa-twitter"></i> [melissaekline](https://twitter.com/melissaekline)
+- <i class="fa fa-globe"></i> [www.melissaklinestruhl.com](www.melissaklinestruhl.com)
+
+
+Skills {#skills}
+--------------------------------------------------------------------------------
+
+- MKS skill list goes here
+
+
+Disclaimer {#disclaimer}
+--------------------------------------------------------------------------------
+
+This resume was made with the R package [**pagedown**](https://github.com/rstudio/pagedown).
+
+Last updated on `r Sys.Date()`.
+
+
+
+Main
+================================================================================
+
+Melissa Kline Struhl {#title}
+--------------------------------------------------------------------------------
+
+### Hello!
+
+I am Melissa Kline Struhl and this is my CV.
+
+
+Education {data-icon=graduation-cap data-concise=true}
+--------------------------------------------------------------------------------
+
+```{r education}
+print_section(entries, section_id = "education", glue_template = "default")
+```
+
+Employment {data-icon=laptop}
+--------------------------------------------------------------------------------
+
+```{r employment}
+print_section(entries, section_id = "employment", glue_template = "default")
+```
+
+
+<!-- Research Experience {data-icon=laptop} EXAMPLE FOR MAKING TEMPLATES!-->
+<!-- -------------------------------------------------------------------------------- -->
+
+<!-- ### Graduate Research Assistant -->
+
+<!-- Beijing Institute of Genomics, Chinese Academy of Sciences -->
+
+<!-- Beijing, China -->
+
+<!-- 2011 - 2014 -->
+
+<!-- - Performed computational biology research towards understanding regulation of alternative splicing in human and mouse transcriptome. -->
+<!-- - Found EGFR pathway related mutations, aimed to understand the impacts of cancer mutations on EGFR signaling pathway. -->
+
+<!-- ### Bioinformatican -->
+
+<!-- My Health Gene Technology Co., Ltd. -->
+
+<!-- Beijing, China -->
+
+<!-- 2015 - 2016 -->
+
+<!-- - Investigated how cancer cells spread to other parts of the body at the single cell level. -->
+
+
+Published Articles {data-icon=file}
+--------------------------------------------------------------------------------
+
+```{r citations}
+print_section(papers, section_id = "papers", glue_template = "citation")
+```
+
+Other Manuscripts {data-icon=file}
+--------------------------------------------------------------------------------
+```{r other1}
+print_section(entries, section_id = "preprints")
+```
+
+```{r other2}
+print_section(entries, section_id = "preregistrations")
+```
+
+```{r other3}
+print_section(entries, section_id = "proceedings")
+```
+
+Conference Posters & Presentations {data-icon=person}
+--------------------------------------------------------------------------------
+```{r conf}
+print_section(entries, section_id = "presen_posters")
+```
+
+Awards {data-icon=person}
+--------------------------------------------------------------------------------
+```{r award}
+print_section(entries, section_id = "awards")
+```
+
+Teaching {data-icon=person}
+--------------------------------------------------------------------------------
+```{r teach}
+print_section(entries, section_id = "teaching")
+```
+
+Service {data-icon=person}
+--------------------------------------------------------------------------------
+```{r service}
+print_section(entries, section_id = "service")
+```
