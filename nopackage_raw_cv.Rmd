@@ -1,0 +1,214 @@
+---
+title: ""
+output: 
+  html_document:
+    css: "style.css"
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results='asis', echo = FALSE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(rcrossref)
+library(glue)
+library(here)
+```
+
+```{r get-paper-data, warning = FALSE, include = FALSE}
+papers <- read.csv(paste0(here::here(), '/published_papers.csv')) %>%
+  mutate(across(where(is.character), ~na_if(., "")))
+
+c_papers <- filter(papers, is.na(crossref_broken)) %>%
+  mutate(citation_text = unlist(cr_cn(full_doi, format = 'text', style = "apa")))
+
+noc_papers <- filter(papers, crossref_broken=="x") %>%
+  mutate(citation_text = manual_citation)
+
+papers <- bind_rows(c_papers, noc_papers) %>%
+  mutate(citation_year = str_extract(citation_text, "(20|19)[0-9]{2}")) %>%
+  mutate(section = "papers",
+         description_1 = as.character(NA),
+         start = as.character(NA),
+         end = citation_year) %>%
+  mutate_all(as.character)
+```
+
+```{r get-unformatted-data}
+unformatted_entries <- read.csv(paste0(here::here(), '/unformatted_entries.csv')) %>%
+  mutate(across(where(is.character), ~na_if(., ""))) %>%
+  mutate_all(as.character)
+```
+```{r bind-entries}
+entries <- bind_rows(papers, unformatted_entries) %>%
+  arrange(!is.na(end), desc(end))
+```
+
+
+```{r funcs, include = FALSE}
+# From rdatadrivencv package
+#' @description Take a position data frame and the section id desired and prints the section to markdown.
+#' @param section_id ID of the entries section to be printed as encoded by the `section` column of the `entries` table
+
+print_section <- function(cvtable, section_id, glue_template = "default"){
+
+  # Choose Template
+  if(glue_template == "default"){
+    glue_template <- "
+    
+    {timeline}: {title}
+    
+    {institution}
+    
+    {description_bullets}
+    
+    <br>
+"
+  }
+  
+    if(glue_template == "single-line"){
+    glue_template <- "
+    
+    {timeline}: {title}, {institution} {description_bullets}
+    
+    <br>
+"
+  }
+  
+  if(glue_template == "citation"){
+    glue_template <- "
+    {citation_text}
+    
+    <br>
+"  
+  }
+  
+  if(glue_template == "informal_citation"){
+    glue_template <- "
+    {manual_citation}
+    
+    <br>
+"  
+  }
+  
+
+  # Get relevant data
+  section_data <- dplyr::filter(cvtable, section == section_id)
+  
+  # Transform data for template!
+  section_data <- section_data %>%
+    unite(
+      starts_with('description'),
+      col = "description_bullets",
+      sep = "\n\n",
+      na.rm = TRUE
+    ) %>%
+    mutate(description_bullets = ifelse(description_bullets != "", paste0("", description_bullets), "\n")) %>%
+    mutate(institution = ifelse(is.na(institution),"", institution)) %>%
+    mutate(no_start = is.na(start),
+      has_start = !no_start,
+      no_end = is.na(end),
+      has_end = !no_end,
+      timeline = case_when(
+        no_start  & no_end  ~ "Ongoing",
+        no_start  & has_end ~ as.character(end),
+        has_start & no_end  ~ paste(start, "- Present"),
+        TRUE                ~ paste(start, "-", end)
+      ))
+
+  # Print data in template
+  print(glue::glue_data(section_data, glue_template))
+}
+```
+
+### Melissa Kline Struhl
+
+**Lookit Executive Director | Research Scientist**
+
+**Brain & Cognitive Sciences Department**
+
+**Massachusetts Institute of Technology**
+
+This resume was last updated on `r Sys.Date()`, and was generated from this Rmarkdown document, based on the [datadrivencv](https://github.com/nstrayer/datadrivencv) and [vitae](https://cran.r-project.org/web/packages/vitae/index.html) r packages.
+<br>
+
+#### Contact Info 
+
+- mekline@mit.edu
+- [github: mekline](https://github.com/mekline)
+- [twitter: melissaekline](https://twitter.com/melissaekline)
+- [www.melissaklinestruhl.com](www.melissaklinestruhl.com)
+
+<br>
+
+#### Interests
+
+- Open, equitable, and robust scientific practices!
+- FAIR data sharing and management
+- Online experiments with children
+- Cognitive development & language acquisition
+
+<br>
+
+#### Education
+
+```{r education}
+print_section(entries, section_id = "education", glue_template = "default")
+```
+
+#### Published Articles 
+
+```{r citations}
+print_section(entries, section_id = "papers", glue_template = "citation")
+```
+
+#### Other Manuscripts 
+
+##### Preprints
+
+```{r other1}
+print_section(entries, section_id = "preprints", glue_template = "informal_citation")
+```
+
+##### Preregistrations
+
+```{r other2}
+print_section(entries, section_id = "preregistrations", glue_template = "informal_citation")
+```
+
+##### Proceedings
+
+```{r other3}
+print_section(entries, section_id = "proceedings", glue_template = "informal_citation")
+```
+
+#### Conference Posters & Presentations 
+```{r conf}
+print_section(entries, section_id = "presen_posters", glue_template = "informal_citation")
+```
+
+
+#### Employment 
+
+```{r employment}
+print_section(entries, section_id = "employment", glue_template = "default")
+```
+
+
+#### Awards 
+```{r award}
+print_section(entries, section_id = "awards")
+```
+
+#### Teaching 
+```{r teach}
+print_section(entries, section_id = "teaching", glue_template = "single-line")
+```
+
+#### Service
+```{r service}
+print_section(entries, section_id = "service", glue_template = "single-line")
+```
+
+
+
