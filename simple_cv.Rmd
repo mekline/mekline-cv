@@ -1,8 +1,6 @@
 ---
-title: ""
-output: 
-  html_document:
-    css: "style.css"
+title: "Melissa Kline Struhl"
+output: html_document
 ---
 
 
@@ -39,13 +37,13 @@ unformatted_entries <- read.csv(paste0(here::here(), '/unformatted_entries.csv')
   mutate(across(where(is.character), ~na_if(., ""))) %>%
   mutate_all(as.character)
 ```
+
 ```{r bind-entries}
 entries <- bind_rows(papers, unformatted_entries) %>%
   arrange(!is.na(end), desc(end))
 ```
 
-
-```{r funcs, include = FALSE}
+```{r section-formats, include = FALSE}
 # From rdatadrivencv package
 #' @description Take a position data frame and the section id desired and prints the section to markdown.
 #' @param section_id ID of the entries section to be printed as encoded by the `section` column of the `entries` table
@@ -85,7 +83,7 @@ print_section <- function(cvtable, section_id, glue_template = "default"){
   
   if(glue_template == "informal_citation"){
     glue_template <- "
-    {manual_citation}
+    {manual_citation} {link_address}
     
     <br>
 "  
@@ -105,6 +103,7 @@ print_section <- function(cvtable, section_id, glue_template = "default"){
     ) %>%
     mutate(description_bullets = ifelse(description_bullets != "", paste0("", description_bullets), "\n")) %>%
     mutate(institution = ifelse(is.na(institution),"", institution)) %>%
+    mutate(link_address = ifelse(is.na(link), "", paste0("[Link](", link, ")"))) %>%
     mutate(no_start = is.na(start),
       has_start = !no_start,
       no_end = is.na(end),
@@ -121,15 +120,15 @@ print_section <- function(cvtable, section_id, glue_template = "default"){
 }
 ```
 
-### Melissa Kline Struhl
-
 **Lookit Executive Director | Research Scientist**
 
 **Brain & Cognitive Sciences Department**
 
 **Massachusetts Institute of Technology**
 
+<br>
 This resume was last updated on `r Sys.Date()`, and was generated from this Rmarkdown document, based on the [datadrivencv](https://github.com/nstrayer/datadrivencv) and [vitae](https://cran.r-project.org/web/packages/vitae/index.html) r packages.
+
 <br>
 
 #### Contact Info 
