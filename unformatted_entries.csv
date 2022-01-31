@@ -1,5 +1,5 @@
 section,start,end,title,institution,link,description_1,description_2,manual_citation
-education,2009,2015," PhD, Brain & Cognitive Science",Massachusetts Institute of Technology,,Committee: Laura Schulz; Ted Gibson; Jesse Snedeker; Josh Tenenbaum,Thesis title: Who did what to whom: Developmental perspectives on the meaning and communication of transitive events,
+education,2009,2015, Ph.D. in Brain & Cognitive Science,Massachusetts Institute of Technology,,Committee: Laura Schulz; Ted Gibson; Jesse Snedeker; Josh Tenenbaum,Thesis title: Who did what to whom: Developmental perspectives on the meaning and communication of transitive events,
 education,2004,2008,Sc.B. in Cognitive Science,Brown University,,Advisor: Katherine Demuth,Thesis title: Syntactic generalization with novel intransitive verbs: Who is pilking?,
 employment,2019,2021,Research Scientist,Center for Open Science,,Supervisor: Tim Errington,,
 employment,2018,2019,Postdoctoral Associate ,MIT Brain & Cognitive Sciences,,PI: Joshua Tenenbaum,,
@@ -10,7 +10,7 @@ employment,2021,,Executive Director,"Lookit, MIT Brain & Cognitive Sciences",,,,
 preprints,,,,,,,,"Affourtit, J...Kline Struhl, M.,...Fedorenko, E. (Under Review). LanA (Language Atlas): A probabilistic atlas for the language network based on fMRI."
 preprints,,,,,https://psyarxiv.com/h2nyx/,,,"Kline Struhl., M., Galleé, J., Balewski, Z., & Fedorenko, E. (Under Review). Understanding jokes relies on the Theory of Mind system."
 preprints,,,,,https://doi.org/10.31235/osf.io/ 46mnb,,,"Alipourfard, N., Arendt, B., ... Kline Struhl, M., ... Wu, J. (Preprint). Systematizing Confidence in Open Research and Evidence (SCORE)."
-preprints,,,,,https://doi.org/10.31234/osf.io/ksfvq,,,"Nosek, B. A., Hardwicke, T. E., Moshontz, H., Allard, A., Corker, K. S., Dreber, A., Fidler, F. Hilgard, J., Kline Struhl, M., Nuijten, M., Roher, J., Romero, F., Scheel, A., Scherer, L., Schönbrodt, F. & Vazire, S. (In Press). Replicability, Robustness, and Reproducibility in Psychological Science. Annual Review of Psychology. "
+xxx_published,,,,,https://doi.org/10.31234/osf.io/ksfvq,,,"Nosek, B. A., Hardwicke, T. E., Moshontz, H., Allard, A., Corker, K. S., Dreber, A., Fidler, F. Hilgard, J., Kline Struhl, M., Nuijten, M., Roher, J., Romero, F., Scheel, A., Scherer, L., Schönbrodt, F. & Vazire, S. (In Press). Replicability, Robustness, and Reproducibility in Psychological Science. Annual Review of Psychology. "
 preregistrations,,2018,,,https://osf.io/r7g83,,,"Kline, M. & members of the ManyBabies Consortium (2018) ManyBabies 1: Secondary analysis of 'lab factors' and fuss-out rates"
 preregistrations,,2016,,,https://osf.io/7nux2/,,,"Kline, M., Geojo, A., de Rechteren van Hemert, A., & Snedeker, J. (2016) MannerPathPriming - Testing generalization of event semantics across domains"
 preprints,,,,,https://psyarxiv.com/62puh/,,,"Kline, M., Salinas, M., Lim, E., Fedorenko, E., & Gibson, E. Word order patterns in gesture are sensitive to modality-specific production constraints"
@@ -58,5 +58,16 @@ teaching,,2011,Teaching Assistant,MIT Brain & Cognitive Sciences,,Infant & Early
 teaching,,2011,Teaching Assistant,MIT Brain & Cognitive Sciences,,Laboratory in Higher-Level Cognition,,
 teaching,,2006,Teaching Assistant,Brown University,,Models of Computation,,
 teaching,2008,2009,Americorps: After-school science educator,Providence Children’s Museum,,,,
-teaching,2010,2019,"Supervisor for 4 masters’ students, 10 full time and 34 part time/semester undergraduate research assistants, including one senior thesis supervision.",,,,,
+teaching,2010,2019,Supervisor ,"4 masters’ students, 10 full time and 34 part time/semester undergraduate research assistants, including one senior thesis supervision",,,,
 service,,2016,Co-Organizer,Learning to Talk About Events Workshop,,,,
+submitted-grant,,2021,CSSI Framework for Lookit (Education focus),NSF,https://drive.google.com/drive/folders/1gfaRrQ5c_SaypJjU_wfu-M-wD19DLwKA,,,
+submitted-grant,,2022,SEED Center STC,NSF,,,,
+submitted-conference,,2022,Lookit – oral presentation,ICIS,,,,The distribution of study participation on the Lookit online experiment platform - Oral Presentation
+submitted-conference,,2022,Manybabies – symposium,ICIS,https://docs.google.com/document/d/1jJ6qQJuDC0LiKsL_Wamc9mZnDCx_C0wSzhY8-UBpzxM/edit,,,
+accepted-conference,,2022,Big team science for studying small people,CDS,,,,
+submitted-conference,,2022,Manybabies – plenary,SRCD Presidential Special Topics Meeting,,,,How the ManyBabies approach uses open and robust science practices
+submitted-conference,,2022,Lookit – roundtable,SRCD Presidential Special Topics Meeting,,,,"Research over the internet, in the home, and beyond - expanding the relevance of online platforms for the developmental sciences"
+submitted-conference,,2022,BIDS/Psych-DS (Eric Earl),OHBM,https://docs.google.com/document/d/1ILazu7_5KMWaC9SwW2TmQRPJEbZQccmcAjyD-yWCaaI/edit#heading=h.cfn6vea9gq0v,,,
+writing-paper,,,How-To Big Team Science,,https://docs.google.com/document/d/1abKem6gEyvsMwGeGhd1OE4-9Axiu1I5yH4SeoFjXJQk/edit,,,
+writing-paper,,,Autogaze paper,,,,,
+writing-paper,,,Nicole Coates +++ Cogsci paper,,,,,
