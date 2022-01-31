@@ -127,16 +127,19 @@ print_section <- function(cvtable, section_id, glue_template = "default"){
 **Massachusetts Institute of Technology**
 
 <br>
-This resume was last updated on `r Sys.Date()`, and was generated from this Rmarkdown document, based on the [datadrivencv](https://github.com/nstrayer/datadrivencv) and [vitae](https://cran.r-project.org/web/packages/vitae/index.html) r packages.
+This resume was last updated on `r Sys.Date()`.
+
+[Source code](https://github.com/mekline/mekline-cv), based on the [datadrivencv](https://github.com/nstrayer/datadrivencv) and [vitae](https://cran.r-project.org/web/packages/vitae/index.html) r packages.
 
 <br>
 
 #### Contact Info 
 
 - mekline@mit.edu
-- [github: mekline](https://github.com/mekline)
-- [twitter: melissaekline](https://twitter.com/melissaekline)
+- github: [@mekline](https://github.com/mekline)
+- twitter: [@melissaekline](https://twitter.com/melissaekline)
 - [www.melissaklinestruhl.com](www.melissaklinestruhl.com)
+- [lookit.mit.edu](https://lookit.mit.edu/)
 
 <br>
 
@@ -144,7 +147,7 @@ This resume was last updated on `r Sys.Date()`, and was generated from this Rmar
 
 - Open, equitable, and robust scientific practices!
 - FAIR data sharing and management
-- Online experiments with children
+- Online experiments for children & families
 - Cognitive development & language acquisition
 
 <br>
